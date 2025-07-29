@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти - HAIRSTYLE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Додаткові стилі для сторінки контактів */
+        .contacts-page {
+            padding-top: 120px;
+        }
+        
+        .contacts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .contact-info {
+            background-color: var(--dark-secondary);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .contact-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-icon i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+        
+        .contact-text h4 {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: var(--light-gray);
+            line-height: 1.5;
+            transition: var(--transition);
+        }
+        
+        .contact-text a:hover {
+            color: var(--gold);
+        }
+        
+        .working-hours {
+            margin-top: 2rem;
+        }
+        
+        .working-hours h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--light-gray);
+        }
+        
+        .hours-item.current {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .map-container {
+            height: 100%;
+            min-height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border: none;
+        }
+        
+        .social-links {
+            margin-top: 2rem;
+        }
+        
+        .social-links h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .social-links-container {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-link i {
+            color: var(--gold);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+        }
+        
+        .social-link:hover i {
+            color: var(--dark-bg);
+        }
+        
+        @media (max-width: 992px) {
+            .contacts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-container {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>HAIRSTYLE</h1>
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="services.html">Послуги</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="booking.html">Онлайн-запис</a></li>
+                    <li><a href="contacts.html" class="active">Контакти</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="contacts-page">
+        <div class="container">
+            <h2 class="section-title">Контакти</h2>
+            
+            <div class="contacts-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Адреса</h4>
+                            <p>проспект Перемоги, 33/1, Київ, Україна</p>
+                            <p>Біля станції метро Політехнічний інститут</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Телефон</h4>
+                            <p><a href="tel:0934533345">093 453 33 45</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@hairstyle.ua">info@hairstyle.ua</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="working-hours">
+                        <h3>Години роботи</h3>
+                        <div class="hours-item">
+                            <span>Понеділок</span>
+                            <span>10:00 - 18:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Вівторок</span>
+                            <span>10:00 - 18:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Середа</span>
+                            <span>10:00 - 18:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Четвер</span>
+                            <span>10:00 - 18:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>П'ятниця</span>
+                            <span>10:00 - 18:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Субота</span>
+                            <span>10:00 - 18:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Неділя</span>
+                            <span>10:00 - 18:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <h3>Соціальні мережі</h3>
+                        <div class="social-links-container">
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-viber"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.6731124717384!2d30.46398491570251!3d50.44868997947492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce8315c7f5c1%3A0x7aa138f97088a382!2z0L_RgNC-0YHQvy4g0J_QvtCx0LXQtNGLLCAzMywg0JrQuNC10LIsIDAyMDAw!5e0!3m2!1sru!2sua!4v1623158262222!5m2!1sru!2sua" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>HAIRSTYLE</h2>
+                    <p>Ваша краса - наша пристрасть</p>
+                </div>
+                <div class="footer-contact">
+                    <h3>Контакти</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> проспект Перемоги, 33/1, Київ (біля метро Політех)</p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:0934533345">093 453 33 45</a></p>
+                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, щоденно</p>
+                </div>
+                <div class="footer-social">
+                    <h3>Слідкуйте за нами</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 HAIRSTYLE. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Визначення поточного дня тижня та виділення його в годинах роботи
+            const days = ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота'];
+            const today = new Date().getDay();
+            const currentDay = days[today];
+            
+            const hoursItems = document.querySelectorAll('.hours-item');
+            hoursItems.forEach(item => {
+                if (item.querySelector('span').textContent === currentDay) {
+                    item.classList.add('current');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

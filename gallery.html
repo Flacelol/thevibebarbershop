@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея - HAIRSTYLE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Додаткові стилі для сторінки галереї */
+        .gallery-page {
+            padding-top: 120px;
+        }
+        
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            gap: 1rem;
+        }
+        
+        .filter-btn {
+            background-color: var(--dark-secondary);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--gold);
+            color: var(--dark-bg);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-item-category {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .gallery-item-title {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery-item-likes {
+            display: flex;
+            align-items: center;
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .gallery-item-likes i {
+            color: var(--gold);
+            margin-right: 5px;
+        }
+        
+        /* Модальне вікно для перегляду фото */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            border: 3px solid var(--gold);
+            border-radius: 5px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            color: var(--gold);
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-prev {
+            left: -70px;
+        }
+        
+        .modal-next {
+            right: -70px;
+        }
+        
+        .modal-nav:hover {
+            background-color: var(--gold);
+            color: var(--dark-bg);
+        }
+        
+        .modal-caption {
+            color: var(--white);
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-prev {
+                left: -50px;
+            }
+            
+            .modal-next {
+                right: -50px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .modal-nav {
+                position: static;
+                transform: none;
+                margin: 1rem 0.5rem;
+            }
+            
+            .modal-navigation {
+                display: flex;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>HAIRSTYLE</h1>
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="services.html">Послуги</a></li>
+                    <li><a href="gallery.html" class="active">Галерея</a></li>
+                    <li><a href="booking.html">Онлайн-запис</a></li>
+                    <li><a href="contacts.html">Контакти</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="gallery-page">
+        <div class="container">
+            <h2 class="section-title">Наші роботи</h2>
+            
+            <div class="gallery-filter">
+                <button class="filter-btn active" data-filter="all">Всі роботи</button>
+                <button class="filter-btn" data-filter="haircut">Стрижки</button>
+                <button class="filter-btn" data-filter="beard">Борода</button>
+                <button class="filter-btn" data-filter="manicure">Манікюр</button>
+                <button class="filter-btn" data-filter="makeup">Макіяж</button>
+                <button class="filter-btn" data-filter="brows">Брови</button>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Стрижки -->
+                <div class="gallery-item" data-category="haircut">
+                    <img src="images/gallery/haircut-1.jpg" alt="Жіноча стрижка">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Стрижка</div>
+                        <div class="gallery-item-title">Стильне каре</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 124</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="haircut">
+                    <img src="images/gallery/haircut-2.jpg" alt="Чоловіча стрижка">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Стрижка</div>
+                        <div class="gallery-item-title">Сучасна чоловіча стрижка</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 98</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="haircut">
+                    <img src="images/gallery/haircut-3.jpg" alt="Жіноча стрижка з фарбуванням">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Стрижка</div>
+                        <div class="gallery-item-title">Стрижка з фарбуванням</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 156</div>
+                    </div>
+                </div>
+                
+                <!-- Борода -->
+                <div class="gallery-item" data-category="beard">
+                    <img src="images/gallery/beard-1.jpg" alt="Моделювання бороди">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Борода</div>
+                        <div class="gallery-item-title">Класичне моделювання</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 87</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="beard">
+                    <img src="images/gallery/beard-2.jpg" alt="Стильна борода">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Борода</div>
+                        <div class="gallery-item-title">Стильне оформлення</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 112</div>
+                    </div>
+                </div>
+                
+                <!-- Манікюр -->
+                <div class="gallery-item" data-category="manicure">
+                    <img src="images/gallery/manicure-1.jpg" alt="Класичний манікюр">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Манікюр</div>
+                        <div class="gallery-item-title">Класичний манікюр</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 143</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="manicure">
+                    <img src="images/gallery/manicure-2.jpg" alt="Манікюр з дизайном">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Манікюр</div>
+                        <div class="gallery-item-title">Манікюр з дизайном</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 178</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="manicure">
+                    <img src="images/gallery/manicure-3.jpg" alt="Гель-лак">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Манікюр</div>
+                        <div class="gallery-item-title">Покриття гель-лаком</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 132</div>
+                    </div>
+                </div>
+                
+                <!-- Макіяж -->
+                <div class="gallery-item" data-category="makeup">
+                    <img src="images/gallery/makeup-1.jpg" alt="Денний макіяж">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Макіяж</div>
+                        <div class="gallery-item-title">Денний макіяж</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 95</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="makeup">
+                    <img src="images/gallery/makeup-2.jpg" alt="Вечірній макіяж">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Макіяж</div>
+                        <div class="gallery-item-title">Вечірній макіяж</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 167</div>
+                    </div>
+                </div>
+                
+                <!-- Брови -->
+                <div class="gallery-item" data-category="brows">
+                    <img src="images/gallery/brows-1.jpg" alt="Корекція брів">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Брови</div>
+                        <div class="gallery-item-title">Корекція брів</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 108</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="brows">
+                    <img src="images/gallery/brows-2.jpg" alt="Ламінування брів">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-category">Брови</div>
+                        <div class="gallery-item-title">Ламінування брів</div>
+                        <div class="gallery-item-likes"><i class="fas fa-heart"></i> 121</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Модальне вікно для перегляду фото -->
+    <div class="gallery-modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img src="" alt="">
+            <div class="modal-caption"></div>
+            <div class="modal-navigation">
+                <span class="modal-nav modal-prev"><i class="fas fa-chevron-left"></i></span>
+                <span class="modal-nav modal-next"><i class="fas fa-chevron-right"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Подобаються наші роботи?</h2>
+                <p>Запишіться на прийом прямо зараз і станьте частиною нашої галереї краси</p>
+                <a href="booking.html" class="btn">Записатися онлайн</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>HAIRSTYLE</h2>
+                    <p>Ваша краса - наша пристрасть</p>
+                </div>
+                <div class="footer-contact">
+                    <h3>Контакти</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> проспект Перемоги, 33/1, Київ (біля метро Політех)</p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:0934533345">093 453 33 45</a></p>
+                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, щоденно</p>
+                </div>
+                <div class="footer-social">
+                    <h3>Слідкуйте за нами</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 HAIRSTYLE. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Фільтрація галереї
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Активна кнопка
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Фільтрація
+                    const filter = this.getAttribute('data-filter');
+                    
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Модальне вікно для перегляду фото
+            const modal = document.querySelector('.gallery-modal');
+            const modalImg = modal.querySelector('img');
+            const modalCaption = modal.querySelector('.modal-caption');
+            const modalClose = modal.querySelector('.modal-close');
+            const modalPrev = modal.querySelector('.modal-prev');
+            const modalNext = modal.querySelector('.modal-next');
+            let currentIndex = 0;
+            
+            // Відкриття модального вікна
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    modal.style.display = 'flex';
+                    const img = this.querySelector('img');
+                    const title = this.querySelector('.gallery-item-title').textContent;
+                    const category = this.querySelector('.gallery-item-category').textContent;
+                    
+                    modalImg.src = img.src;
+                    modalCaption.textContent = `${category} - ${title}`;
+                    currentIndex = index;
+                });
+            });
+            
+            // Закриття модального вікна
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            // Закриття модального вікна при кліку поза зображенням
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Навігація по галереї
+            modalPrev.addEventListener('click', function() {
+                currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+                updateModal();
+            });
+            
+            modalNext.addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % galleryItems.length;
+                updateModal();
+            });
+            
+            // Оновлення модального вікна
+            function updateModal() {
+                const item = galleryItems[currentIndex];
+                const img = item.querySelector('img');
+                const title = item.querySelector('.gallery-item-title').textContent;
+                const category = item.querySelector('.gallery-item-category').textContent;
+                
+                modalImg.src = img.src;
+                modalCaption.textContent = `${category} - ${title}`;
+            }
+            
+            // Навігація за допомогою клавіш
+            document.addEventListener('keydown', function(e) {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+                        updateModal();
+                    } else if (e.key === 'ArrowRight') {
+                        currentIndex = (currentIndex + 1) % galleryItems.length;
+                        updateModal();
+                    } else if (e.key === 'Escape') {
+                        modal.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

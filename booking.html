@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн-запис - HAIRSTYLE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Додаткові стилі для сторінки онлайн-запису */
+        .booking-page {
+            padding-top: 120px;
+        }
+        
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .booking-info {
+            background-color: var(--dark-secondary);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        
+        .booking-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .booking-info p {
+            margin-bottom: 1rem;
+            color: var(--light-gray);
+        }
+        
+        .booking-info ul {
+            margin-bottom: 1.5rem;
+        }
+        
+        .booking-info li {
+            margin-bottom: 0.5rem;
+            color: var(--light-gray);
+            display: flex;
+            align-items: center;
+        }
+        
+        .booking-info li i {
+            color: var(--gold);
+            margin-right: 10px;
+        }
+        
+        .booking-form {
+            background-color: var(--dark-secondary);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--dark-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .form-control::placeholder {
+            color: var(--gray);
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23888888" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+        
+        .date-time-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--gold);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--gold-light);
+        }
+        
+        .booking-success {
+            display: none;
+            background-color: rgba(0, 128, 0, 0.2);
+            border: 1px solid rgba(0, 128, 0, 0.5);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .booking-success i {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .booking-success h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+        
+        @media (max-width: 992px) {
+            .booking-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>HAIRSTYLE</h1>
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="services.html">Послуги</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="booking.html" class="active">Онлайн-запис</a></li>
+                    <li><a href="contacts.html">Контакти</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="booking-page">
+        <div class="container">
+            <h2 class="section-title">Онлайн-запис</h2>
+            
+            <div class="booking-container">
+                <div class="booking-form">
+                    <div class="booking-success">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Дякуємо за запис!</h3>
+                        <p>Ваш запис успішно створено. Ми зв'яжемося з вами найближчим часом для підтвердження.</p>
+                    </div>
+                    
+                    <form id="booking-form">
+                        <div class="form-group">
+                            <label for="service">Оберіть послугу</label>
+                            <select id="service" class="form-control" required>
+                                <option value="" disabled selected>Оберіть послугу</option>
+                                <option value="haircut-women">Жіноча стрижка</option>
+                                <option value="haircut-men">Чоловіча стрижка</option>
+                                <option value="beard">Моделювання бороди</option>
+                                <option value="manicure">Манікюр</option>
+                                <option value="pedicure">Педикюр</option>
+                                <option value="makeup">Макіяж</option>
+                                <option value="brows">Корекція брів</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="master">Оберіть майстра</label>
+                            <select id="master" class="form-control" required>
+                                <option value="" disabled selected>Оберіть майстра</option>
+                                <option value="any">Будь-який майстер</option>
+                                <option value="olena">Олена (стрижки, зачіски)</option>
+                                <option value="maria">Марія (манікюр, педикюр)</option>
+                                <option value="andrii">Андрій (чоловічі стрижки, борода)</option>
+                                <option value="natalia">Наталія (макіяж, брови)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="date-time-container">
+                            <div class="form-group">
+                                <label for="date">Дата</label>
+                                <input type="date" id="date" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="time">Час</label>
+                                <select id="time" class="form-control" required>
+                                    <option value="" disabled selected>Оберіть час</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="name">Ваше ім'я</label>
+                            <input type="text" id="name" class="form-control" placeholder="Введіть ваше ім'я" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Номер телефону</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Введіть ваш номер телефону" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email (необов'язково)</label>
+                            <input type="email" id="email" class="form-control" placeholder="Введіть ваш email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="comment">Коментар (необов'язково)</label>
+                            <textarea id="comment" class="form-control" rows="3" placeholder="Додаткова інформація або побажання"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Записатися</button>
+                    </form>
+                </div>
+                
+                <div class="booking-info">
+                    <h3>Інформація про запис</h3>
+                    <p>Щоб записатися на прийом, будь ласка, заповніть форму зліва. Після відправлення форми, ми зв'яжемося з вами для підтвердження запису.</p>
+                    
+                    <h3>Правила запису</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Запис здійснюється не пізніше ніж за 24 години до бажаного часу</li>
+                        <li><i class="fas fa-check"></i> У разі скасування запису, будь ласка, повідомте нас не пізніше ніж за 2 години</li>
+                        <li><i class="fas fa-check"></i> Рекомендуємо приходити за 10-15 хвилин до призначеного часу</li>
+                        <li><i class="fas fa-check"></i> Якщо ви запізнюєтесь, будь ласка, повідомте нас за телефоном</li>
+                    </ul>
+                    
+                    <h3>Контактна інформація</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> проспект Перемоги, 33/1, Київ (біля метро Політех)</p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:0934533345">093 453 33 45</a></p>
+                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, щоденно</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>HAIRSTYLE</h2>
+                    <p>Ваша краса - наша пристрасть</p>
+                </div>
+                <div class="footer-contact">
+                    <h3>Контакти</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> проспект Перемоги, 33/1, Київ (біля метро Політех)</p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:0934533345">093 453 33 45</a></p>
+                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, щоденно</p>
+                </div>
+                <div class="footer-social">
+                    <h3>Слідкуйте за нами</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 HAIRSTYLE. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookingForm = document.getElementById('booking-form');
+            const bookingSuccess = document.querySelector('.booking-success');
+            
+            // Встановлення мінімальної дати для вибору (сьогодні)
+            const dateInput = document.getElementById('date');
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            dateInput.min = formattedToday;
+            
+            // Обробка відправки форми
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Збір даних форми
+                const formData = new FormData();
+                formData.append('service', document.getElementById('service').value);
+                formData.append('master', document.getElementById('master').value);
+                formData.append('date', document.getElementById('date').value);
+                formData.append('time', document.getElementById('time').value);
+                formData.append('name', document.getElementById('name').value);
+                formData.append('phone', document.getElementById('phone').value);
+                formData.append('email', document.getElementById('email').value);
+                formData.append('comment', document.getElementById('comment').value);
+                
+                // В демо-режимі імітуємо відправку даних на сервер
+                // У реальному проекті тут буде запит до сервера
+                console.log('Дані форми:', {
+                    service: document.getElementById('service').value,
+                    master: document.getElementById('master').value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    name: document.getElementById('name').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    comment: document.getElementById('comment').value
+                });
+                
+                // Імітація успішної відправки
+                setTimeout(function() {
+                    // Показ повідомлення про успішний запис
+                    bookingSuccess.style.display = 'block';
+                    
+                    // Прокрутка до повідомлення
+                    bookingSuccess.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Очищення форми
+                    bookingForm.reset();
+                    
+                    // Приховування повідомлення через 5 секунд
+                    setTimeout(function() {
+                        bookingSuccess.style.display = 'none';
+                    }, 5000);
+                }, 1000);
+            });
+            
+            // Валідація номера телефону
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function() {
+                let phoneNumber = this.value.replace(/\D/g, '');
+                if (phoneNumber.length > 0) {
+                    if (phoneNumber.length > 10) {
+                        phoneNumber = phoneNumber.substring(0, 10);
+                    }
+                    this.value = phoneNumber.replace(/^(\d{0,3})(\d{0,3})(\d{0,4}).*/, function(match, p1, p2, p3) {
+                        let formatted = '';
+                        if (p1) formatted += p1;
+                        if (p2) formatted += ' ' + p2;
+                        if (p3) formatted += ' ' + p3;
+                        return formatted;
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
