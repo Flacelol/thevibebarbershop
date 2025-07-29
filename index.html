@@ -3,161 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAIRSTYLE - Салон краси у Києві</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Запис на прийом - HAIRSTYLE</title>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .booking-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <h1>HAIRSTYLE</h1>
+    <div class="booking-form">
+        <h1>Запис на прийом</h1>
+        
+        <form id="bookingForm">
+            <div class="form-group">
+                <label for="service">Оберіть послугу:</label>
+                <select id="service" name="service" required>
+                    <option value="">-- Оберіть послугу --</option>
+                    <option value="Жіноча стрижка">Жіноча стрижка</option>
+                    <option value="Чоловіча стрижка">Чоловіча стрижка</option>
+                    <option value="Моделювання бороди">Моделювання бороди</option>
+                    <option value="Манікюр">Манікюр</option>
+                    <option value="Педикюр">Педикюр</option>
+                    <option value="Макіяж">Макіяж</option>
+                    <option value="Корекція брів">Корекція брів</option>
+                </select>
             </div>
-            <nav>
-                <ul class="menu">
-                    <li><a href="index.html" class="active">Головна</a></li>
-                    <li><a href="services.html">Послуги</a></li>
-                    <li><a href="gallery.html">Галерея</a></li>
-                    <li><a href="booking.html">Онлайн-запис</a></li>
-                    <li><a href="contacts.html">Контакти</a></li>
-                </ul>
-                <div class="mobile-menu-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
-        </div>
-    </header>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h2>Ваша краса - наша пристрасть</h2>
-                <p>Салон краси HAIRSTYLE - місце, де ви відчуєте себе особливими</p>
-                <a href="booking.html" class="btn">Записатися онлайн</a>
+            <div class="form-group">
+                <label for="master">Оберіть майстра:</label>
+                <select id="master" name="master" required>
+                    <option value="">-- Оберіть майстра --</option>
+                    <option value="Будь-який майстер">Будь-який майстер</option>
+                    <option value="Олена (стрижки, зачіски)">Олена (стрижки, зачіски)</option>
+                    <option value="Марія (манікюр, педикюр)">Марія (манікюр, педикюр)</option>
+                    <option value="Андрій (чоловічі стрижки, борода)">Андрій (чоловічі стрижки, борода)</option>
+                    <option value="Наталія (макіяж, брови)">Наталія (макіяж, брови)</option>
+                </select>
             </div>
-        </div>
-    </section>
 
-    <section class="about">
-        <div class="container">
-            <h2 class="section-title">Про нас</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Ласкаво просимо до салону краси HAIRSTYLE - вашого особистого простору краси та стилю в самому серці Києва.</p>
-                    <p>Наш салон створений для тих, хто цінує якість, професіоналізм та індивідуальний підхід. Ми пропонуємо широкий спектр послуг від стрижок та укладок до манікюру, педикюру та макіяжу.</p>
-                    <p>У HAIRSTYLE працюють лише висококваліфіковані майстри, які постійно вдосконалюють свої навички та слідкують за останніми тенденціями у світі краси.</p>
-                    <p>Наша мета - підкреслити вашу природну красу та допомогти вам відчути себе впевнено та комфортно.</p>
-                </div>
-                <div class="about-image">
-                    <img src="images/salon-interior.jpg" alt="Інтер'єр салону HAIRSTYLE">
-                </div>
+            <div class="form-group">
+                <label for="date">Дата:</label>
+                <input type="date" id="date" name="date" required>
             </div>
-        </div>
-    </section>
 
-    <section class="services-preview">
-        <div class="container">
-            <h2 class="section-title">Наші послуги</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-cut"></i></div>
-                    <h3>Стрижки</h3>
-                    <p>Професійні стрижки для чоловіків та жінок</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-user-tie"></i></div>
-                    <h3>Борода</h3>
-                    <p>Стильне моделювання та догляд за бородою</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-hand-sparkles"></i></div>
-                    <h3>Манікюр та педикюр</h3>
-                    <p>Доглянуті руки та ноги - запорука вашої впевненості</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-magic"></i></div>
-                    <h3>Макіяж</h3>
-                    <p>Професійний макіяж для будь-якої події</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-eye"></i></div>
-                    <h3>Брови</h3>
-                    <p>Корекція та моделювання брів</p>
-                </div>
+            <div class="form-group">
+                <label for="time">Час:</label>
+                <select id="time" name="time" required>
+                    <option value="">-- Оберіть час --</option>
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                </select>
             </div>
-            <div class="services-btn">
-                <a href="services.html" class="btn">Всі послуги</a>
-            </div>
-        </div>
-    </section>
 
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Відгуки клієнтів</h2>
-            <div class="testimonials-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        <p>"Чудовий салон з професійними майстрами! Завжди виходжу звідси з чудовим настроєм та новою зачіскою, яка підкреслює мою індивідуальність."</p>
-                    </div>
-                    <div class="testimonial-author">Олена К.</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        <p>"Регулярно відвідую HAIRSTYLE для манікюру та педикюру. Якість послуг на найвищому рівні, а атмосфера завжди привітна та затишна."</p>
-                    </div>
-                    <div class="testimonial-author">Марія Д.</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        <p>"Як чоловік, ціную професійний підхід до стрижки та догляду за бородою. В HAIRSTYLE завжди отримую саме те, що хочу."</p>
-                    </div>
-                    <div class="testimonial-author">Андрій В.</div>
-                </div>
+            <div class="form-group">
+                <label for="name">Ваше ім'я:</label>
+                <input type="text" id="name" name="name" required>
             </div>
-        </div>
-    </section>
 
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Готові до змін?</h2>
-                <p>Запишіться на прийом прямо зараз і відчуйте переваги професійного догляду</p>
-                <a href="booking.html" class="btn">Записатися онлайн</a>
+            <div class="form-group">
+                <label for="phone">Телефон:</label>
+                <input type="tel" id="phone" name="phone" required>
             </div>
-        </div>
-    </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>HAIRSTYLE</h2>
-                    <p>Ваша краса - наша пристрасть</p>
-                </div>
-                <div class="footer-contact">
-                    <h3>Контакти</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> проспект Перемоги, 33/1, Київ (біля метро Політех)</p>
-                    <p><i class="fas fa-phone"></i> <a href="tel:0934533345">093 453 33 45</a></p>
-                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, щоденно</p>
-                </div>
-                <div class="footer-social">
-                    <h3>Слідкуйте за нами</h3>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="email">Email (не обов'язково):</label>
+                <input type="email" id="email" name="email">
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 HAIRSTYLE. Всі права захищені.</p>
-            </div>
-        </div>
-    </footer>
 
-    <script src="js/script.js"></script>
+            <div class="form-group">
+                <label for="comment">Коментар (не обов'язково):</label>
+                <textarea id="comment" name="comment" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Записатися</button>
+        </form>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        // Initialize EmailJS with your public key
+        emailjs.init('mQ7rD4M2WEAjG89N_'); // Replace with your actual public key
+
+        // Set minimum date to today
+        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('message');
+            
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Відправляємо...';
+            messageDiv.style.display = 'none';
+            
+            // Get form data
+            const formData = {
+                service_name: document.getElementById('service').value,
+                master_name: document.getElementById('master').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                client_name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value || 'Не вказано',
+                comment: document.getElementById('comment').value || 'Немає коментарів'
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_57046w5', 'template_720k3yo', formData)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showMessage('Запис успішно створено! Ми з вами зв\'яжемося найближчим часом.', 'success');
+                    document.getElementById('bookingForm').reset();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    showMessage('Виникла помилка при створенні запису. Будь ласка, спробуйте пізніше або зв\'яжіться з нами за телефоном.', 'error');
+                })
+                .finally(function() {
+                    // Re-enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Записатися';
+                });
+        });
+        
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = 'message ' + type;
+            messageDiv.style.display = 'block';
+            
+            // Hide message after 5 seconds for success messages
+            if (type === 'success') {
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+    </script>
 </body>
 </html>
