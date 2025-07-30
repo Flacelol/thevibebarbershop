@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
         /* Додаткові стилі для сторінки онлайн-запису */
         .booking-page {
@@ -312,9 +314,37 @@
 
     <script src="js/script.js"></script>
     <script>
+        // Initialize EmailJS with your public key
+        console.log('Initializing EmailJS...');
+        
+        // Create debug info element
+        const debugInfo = document.createElement('div');
+        debugInfo.style.cssText = 'position: fixed; top: 10px; right: 10px; background: #333; color: white; padding: 10px; border-radius: 5px; z-index: 9999; font-size: 12px; max-width: 300px;';
+        document.body.appendChild(debugInfo);
+        
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init('mQ7rD4M2WEAjG89N_');
+            console.log('EmailJS initialized successfully');
+            console.log('EmailJS object:', emailjs);
+            debugInfo.innerHTML = '✅ EmailJS загружен и готов к работе!';
+            debugInfo.style.background = '#28a745';
+        } else {
+            console.error('EmailJS library not loaded!');
+            debugInfo.innerHTML = '❌ EmailJS не загружен! Проверьте подключение к интернету.';
+            debugInfo.style.background = '#dc3545';
+        }
+        
+        // Hide debug info after 5 seconds
+        setTimeout(() => {
+            if (debugInfo.parentNode) {
+                debugInfo.parentNode.removeChild(debugInfo);
+            }
+        }, 5000);
+        
         document.addEventListener('DOMContentLoaded', function() {
             const bookingForm = document.getElementById('booking-form');
             const bookingSuccess = document.querySelector('.booking-success');
+            const submitBtn = bookingForm.querySelector('button[type="submit"]');
             
             // Встановлення мінімальної дати для вибору (сьогодні)
             const dateInput = document.getElementById('date');
@@ -329,46 +359,51 @@
             bookingForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Збір даних форми
-                const formData = new FormData();
-                formData.append('service', document.getElementById('service').value);
-                formData.append('master', document.getElementById('master').value);
-                formData.append('date', document.getElementById('date').value);
-                formData.append('time', document.getElementById('time').value);
-                formData.append('name', document.getElementById('name').value);
-                formData.append('phone', document.getElementById('phone').value);
-                formData.append('email', document.getElementById('email').value);
-                formData.append('comment', document.getElementById('comment').value);
+                // Disable submit button and show loading
+                const originalText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Відправляємо...';
                 
-                // В демо-режимі імітуємо відправку даних на сервер
-                // У реальному проекті тут буде запит до сервера
-                console.log('Дані форми:', {
-                    service: document.getElementById('service').value,
-                    master: document.getElementById('master').value,
+                // Збір даних для EmailJS
+                const formData = {
+                    service_name: document.getElementById('service').value,
+                    master_name: document.getElementById('master').value,
                     date: document.getElementById('date').value,
                     time: document.getElementById('time').value,
-                    name: document.getElementById('name').value,
+                    client_name: document.getElementById('name').value,
                     phone: document.getElementById('phone').value,
-                    email: document.getElementById('email').value,
-                    comment: document.getElementById('comment').value
-                });
+                    email: document.getElementById('email').value || 'Не вказано',
+                    comment: document.getElementById('comment').value || 'Немає коментарів'
+                };
                 
-                // Імітація успішної відправки
-                setTimeout(function() {
-                    // Показ повідомлення про успішний запис
-                    bookingSuccess.style.display = 'block';
-                    
-                    // Прокрутка до повідомлення
-                    bookingSuccess.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Очищення форми
-                    bookingForm.reset();
-                    
-                    // Приховування повідомлення через 5 секунд
-                    setTimeout(function() {
-                        bookingSuccess.style.display = 'none';
-                    }, 5000);
-                }, 1000);
+                // Send email using EmailJS
+                emailjs.send('service_57046w5', 'template_720k3yo', formData)
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        
+                        // Показ повідомлення про успішний запис
+                        bookingSuccess.style.display = 'block';
+                        
+                        // Прокрутка до повідомлення
+                        bookingSuccess.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Очищення форми
+                        bookingForm.reset();
+                        dateInput.min = formattedToday; // Restore min date after reset
+                        
+                        // Приховування повідомлення через 5 секунд
+                        setTimeout(function() {
+                            bookingSuccess.style.display = 'none';
+                        }, 5000);
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                        alert('Виникла помилка при створенні запису. Будь ласка, спробуйте пізніше або зв\'яжіться з нами за телефоном.');
+                    })
+                    .finally(function() {
+                        // Re-enable submit button
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    });
             });
             
             // Валідація номера телефону

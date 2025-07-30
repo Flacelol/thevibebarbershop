@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test EmailJS</title>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+    <h1>Test EmailJS</h1>
+    <button id="testBtn">Test EmailJS</button>
+    <div id="result"></div>
+
+    <script>
+        console.log('Starting EmailJS test...');
+        
+        // Check if EmailJS is loaded
+        if (typeof emailjs !== 'undefined') {
+            console.log('✅ EmailJS library loaded successfully');
+            console.log('EmailJS object:', emailjs);
+            
+            // Initialize EmailJS
+            try {
+                emailjs.init('mQ7rD4M2WEAjG89N_');
+                console.log('✅ EmailJS initialized successfully');
+                document.getElementById('result').innerHTML = '<p style="color: green;">✅ EmailJS загружен и инициализирован успешно!</p>';
+            } catch (error) {
+                console.error('❌ Error initializing EmailJS:', error);
+                document.getElementById('result').innerHTML = '<p style="color: red;">❌ Ошибка инициализации EmailJS: ' + error.message + '</p>';
+            }
+        } else {
+            console.error('❌ EmailJS library not loaded!');
+            document.getElementById('result').innerHTML = '<p style="color: red;">❌ Библиотека EmailJS не загружена!</p>';
+        }
+        
+        // Test button
+        document.getElementById('testBtn').addEventListener('click', function() {
+            console.log('Testing EmailJS send function...');
+            
+            if (typeof emailjs !== 'undefined' && emailjs.send) {
+                console.log('✅ EmailJS send function is available');
+                document.getElementById('result').innerHTML += '<p style="color: blue;">✅ Функция emailjs.send доступна!</p>';
+            } else {
+                console.error('❌ EmailJS send function not available');
+                document.getElementById('result').innerHTML += '<p style="color: red;">❌ Функция emailjs.send недоступна!</p>';
+            }
+        });
+    </script>
+</body>
+</html>
