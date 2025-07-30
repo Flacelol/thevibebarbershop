@@ -3,225 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Запис на прийом - HAIRSTYLE</title>
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .booking-form {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        input:focus, select:focus, textarea:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-        .submit-btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-        .submit-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        .message {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-            display: none;
-        }
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-    </style>
+    <title>HAIRSTYLE - Салон краси</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="booking-form">
-        <h1>Запис на прийом</h1>
-        
-        <form id="bookingForm">
-            <div class="form-group">
-                <label for="service">Оберіть послугу:</label>
-                <select id="service" name="service" required>
-                    <option value="">-- Оберіть послугу --</option>
-                    <option value="Жіноча стрижка">Жіноча стрижка</option>
-                    <option value="Чоловіча стрижка">Чоловіча стрижка</option>
-                    <option value="Моделювання бороди">Моделювання бороди</option>
-                    <option value="Манікюр">Манікюр</option>
-                    <option value="Педикюр">Педикюр</option>
-                    <option value="Макіяж">Макіяж</option>
-                    <option value="Корекція брів">Корекція брів</option>
-                </select>
+    <!-- Хедер -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>HAIRSTYLE</h1>
             </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html" class="active">Головна</a></li>
+                    <li><a href="services.html">Послуги</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="booking.html">Запис</a></li>
+                    <li><a href="contacts.html">Контакти</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-            <div class="form-group">
-                <label for="master">Оберіть майстра:</label>
-                <select id="master" name="master" required>
-                    <option value="">-- Оберіть майстра --</option>
-                    <option value="Будь-який майстер">Будь-який майстер</option>
-                    <option value="Олена (стрижки, зачіски)">Олена (стрижки, зачіски)</option>
-                    <option value="Марія (манікюр, педикюр)">Марія (манікюр, педикюр)</option>
-                    <option value="Андрій (чоловічі стрижки, борода)">Андрій (чоловічі стрижки, борода)</option>
-                    <option value="Наталія (макіяж, брови)">Наталія (макіяж, брови)</option>
-                </select>
+    <!-- Героїчна секція -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Ваша краса - наша пристрасть</h2>
+                <p>Професійні послуги краси в затишній атмосфері. Довіртеся нашим майстрам і відчуйте себе неперевершеними.</p>
+                <a href="booking.html" class="btn">Записатися онлайн</a>
             </div>
+        </div>
+    </section>
 
-            <div class="form-group">
-                <label for="date">Дата:</label>
-                <input type="date" id="date" name="date" required>
+    <!-- Про нас -->
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title">Про нас</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Салон краси HAIRSTYLE</h3>
+                    <p>Ми - команда професійних майстрів, які вже понад 10 років створюють красу та надихають наших клієнтів. Наш салон - це місце, де поєднуються традиції та інновації, де кожен клієнт отримує індивідуальний підхід та найвищий рівень сервісу.</p>
+                    <p>Ми використовуємо тільки якісні матеріали та сучасне обладнання, щоб забезпечити найкращий результат. Наша мета - не просто надати послугу, а створити для вас незабутній досвід краси та релаксації.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-award"></i>
+                            <h4>Професійність</h4>
+                            <p>Досвідчені майстри з сертифікатами</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h4>Індивідуальний підхід</h4>
+                            <p>Кожен клієнт для нас особливий</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-star"></i>
+                            <h4>Якість</h4>
+                            <p>Тільки преміум матеріали та обладнання</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="images/about-us.jpg" alt="Про нас">
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="form-group">
-                <label for="time">Час:</label>
-                <select id="time" name="time" required>
-                    <option value="">-- Оберіть час --</option>
-                    <option value="09:00">09:00</option>
-                    <option value="10:00">10:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="12:00">12:00</option>
-                    <option value="13:00">13:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="17:00">17:00</option>
-                    <option value="18:00">18:00</option>
-                </select>
+    <!-- Послуги -->
+    <section class="services-preview">
+        <div class="container">
+            <h2 class="section-title">Наші послуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Стрижки</h3>
+                    <p>Модні жіночі та чоловічі стрижки від досвідчених майстрів</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Фарбування</h3>
+                    <p>Професійне фарбування волосся з використанням якісних фарб</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <h3>Манікюр</h3>
+                    <p>Класичний та апаратний манікюр з покриттям гель-лаком</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3>Макіяж</h3>
+                    <p>Професійний макіяж для будь-якої події</p>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="name">Ваше ім'я:</label>
-                <input type="text" id="name" name="name" required>
+            <div class="services-cta">
+                <a href="services.html" class="btn">Всі послуги</a>
             </div>
+        </div>
+    </section>
 
-            <div class="form-group">
-                <label for="phone">Телефон:</label>
-                <input type="tel" id="phone" name="phone" required>
+    <!-- Команда -->
+    <section class="team">
+        <div class="container">
+            <h2 class="section-title">Наша команда</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="images/master1.jpg" alt="Олена">
+                    </div>
+                    <h3>Олена</h3>
+                    <p class="position">Топ-стиліст</p>
+                    <p>Спеціалізація: стрижки, зачіски, фарбування</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="images/master2.jpg" alt="Марія">
+                    </div>
+                    <h3>Марія</h3>
+                    <p class="position">Майстер манікюру</p>
+                    <p>Спеціалізація: манікюр, педикюр, нейл-арт</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="images/master3.jpg" alt="Андрій">
+                    </div>
+                    <h3>Андрій</h3>
+                    <p class="position">Барбер</p>
+                    <p>Спеціалізація: чоловічі стрижки, моделювання бороди</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="images/master4.jpg" alt="Наталія">
+                    </div>
+                    <h3>Наталія</h3>
+                    <p class="position">Візажист</p>
+                    <p>Спеціалізація: макіяж, корекція брів</p>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="form-group">
-                <label for="email">Email (не обов'язково):</label>
-                <input type="email" id="email" name="email">
+    <!-- Контакти -->
+    <section class="contact-preview">
+        <div class="container">
+            <h2 class="section-title">Контакти</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Адреса</h4>
+                        <p>вул. Хрещатик, 25, Київ</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Телефон</h4>
+                        <p>+38 (044) 123-45-67</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Режим роботи</h4>
+                        <p>Пн-Нд: 09:00 - 20:00</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="comment">Коментар (не обов'язково):</label>
-                <textarea id="comment" name="comment" rows="4"></textarea>
+            <div class="contact-cta">
+                <a href="booking.html" class="btn">Записатися зараз</a>
             </div>
+        </div>
+    </section>
 
-            <button type="submit" class="submit-btn" id="submitBtn">Записатися</button>
-        </form>
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HAIRSTYLE</h3>
+                    <p>Ваша краса - наша пристрасть. Довіртеся професіоналам!</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Швидкі посилання</h4>
+                    <ul>
+                        <li><a href="index.html">Головна</a></li>
+                        <li><a href="services.html">Послуги</a></li>
+                        <li><a href="gallery.html">Галерея</a></li>
+                        <li><a href="booking.html">Запис</a></li>
+                        <li><a href="contacts.html">Контакти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакти</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> вул. Хрещатик, 25, Київ</p>
+                    <p><i class="fas fa-phone"></i> +38 (044) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@hairstyle.ua</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HAIRSTYLE. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
 
-        <div id="message" class="message"></div>
-    </div>
-
-    <script>
-        // Initialize EmailJS with your public key
-        emailjs.init('mQ7rD4M2WEAjG89N_'); // Replace with your actual public key
-
-        // Set minimum date to today
-        document.getElementById('date').min = new Date().toISOString().split('T')[0];
-
-        document.getElementById('bookingForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const messageDiv = document.getElementById('message');
-            
-            // Disable submit button and show loading
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Відправляємо...';
-            messageDiv.style.display = 'none';
-            
-            // Get form data
-            const formData = {
-                service_name: document.getElementById('service').value,
-                master_name: document.getElementById('master').value,
-                date: document.getElementById('date').value,
-                time: document.getElementById('time').value,
-                client_name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value || 'Не вказано',
-                comment: document.getElementById('comment').value || 'Немає коментарів'
-            };
-            
-            // Send email using EmailJS
-            emailjs.send('service_57046w5', 'template_720k3yo', formData)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    showMessage('Запис успішно створено! Ми з вами зв\'яжемося найближчим часом.', 'success');
-                    document.getElementById('bookingForm').reset();
-                }, function(error) {
-                    console.log('FAILED...', error);
-                    showMessage('Виникла помилка при створенні запису. Будь ласка, спробуйте пізніше або зв\'яжіться з нами за телефоном.', 'error');
-                })
-                .finally(function() {
-                    // Re-enable submit button
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Записатися';
-                });
-        });
-        
-        function showMessage(text, type) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = text;
-            messageDiv.className = 'message ' + type;
-            messageDiv.style.display = 'block';
-            
-            // Hide message after 5 seconds for success messages
-            if (type === 'success') {
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 5000);
-            }
-        }
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
