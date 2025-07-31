@@ -469,11 +469,6 @@
                 return false;
             }
             
-            // Получить все активные бронирования
-            getAllBookings() {
-                return this.getBookings();
-            }
-            
             // Удалить старые бронирования (старше указанной даты)
             removeOldBookings(beforeDate) {
                 const bookings = this.getBookings();
@@ -523,12 +518,46 @@
             const formattedYesterday = yesterday.toISOString().split('T')[0];
             bookingManager.removeOldBookings(formattedYesterday);
             
+            // Обработчик для кнопки очистки бронирований
+            const clearBookingsBtn = document.getElementById('clear-bookings-btn');
+            if (clearBookingsBtn) {
+                clearBookingsBtn.addEventListener('click', function() {
+                    if (confirm('Вы уверены, что хотите удалить ВСЕ бронирования? Это действие нельзя отменить.')) {
+                        bookingManager.clearAllBookings();
+                        
+                        // Обновить доступные времена
+                        const selectedDate = dateInput.value;
+                        const selectedMaster = masterSelect.value;
+                        if (selectedDate && selectedMaster) {
+                            bookingManager.updateTimeOptions(selectedDate, selectedMaster);
+                        } else {
+                            // Если дата/мастер не выбраны, просто обновить все времена
+                            timeSelect.innerHTML = '<option value="" disabled selected>Scegli l\'orario</option>';
+                            bookingManager.availableTimes.forEach(time => {
+                                const option = document.createElement('option');
+                                option.value = time;
+                                option.textContent = time;
+                                timeSelect.appendChild(option);
+                            });
+                        }
+                        
+                        alert('Все бронирования удалены!');
+                    }
+                });
+            }
+            
+            // Автоматическая очистка старых бронирований при загрузке страницы
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const formattedYesterday = yesterday.toISOString().split('T')[0];
+            bookingManager.removeOldBookings(formattedYesterday);
+            
             // Impostazione data minima per la selezione (oggi)
             const dateInput = document.getElementById('date');
             const masterSelect = document.getElementById('master');
             const timeSelect = document.getElementById('time');
             
-            const today = new Date();
             const yyyy = today.getFullYear();
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const dd = String(today.getDate()).padStart(2, '0');
