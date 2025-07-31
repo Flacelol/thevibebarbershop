@@ -1,4 +1,4 @@
-/* Загальні стилі */
+/* Stili generali */
 :root {
     --dark-bg: #121212;
     --dark-secondary: #1e1e1e;
@@ -87,7 +87,7 @@ section {
     color: var(--gold);
 }
 
-/* Хедер */
+/* Header */
 header {
     position: fixed;
     top: 0;
@@ -166,7 +166,7 @@ header .container {
     transition: var(--transition);
 }
 
-/* Герой секція */
+/* Sezione hero */
 .hero {
     height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/hero-bg.jpg');
@@ -195,7 +195,7 @@ header .container {
     color: var(--light-gray);
 }
 
-/* Про нас */
+/* Chi siamo */
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -227,7 +227,7 @@ header .container {
     opacity: 0.5;
 }
 
-/* Превью послуг */
+/* Anteprima servizi */
 .services-preview {
     background-color: var(--dark-secondary);
 }
@@ -272,7 +272,7 @@ header .container {
     margin-top: 3rem;
 }
 
-/* Відгуки */
+/* Recensioni */
 .testimonials {
     background-color: var(--dark-bg);
 }
@@ -333,7 +333,7 @@ header .container {
     margin-right: auto;
 }
 
-/* Футер */
+/* Footer */
 footer {
     background-color: var(--dark-secondary);
     padding: 4rem 0 2rem;
@@ -403,7 +403,7 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Адаптивність */
+/* Responsività */
 @media (max-width: 992px) {
     .hero-content h2 {
         font-size: 2.8rem;

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Мобільне меню
+    // Menu mobile
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const menu = document.querySelector('.menu');
     
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.toggle('active');
             menu.classList.toggle('active');
             
-            // Анімація кнопки меню
+            // Animazione del pulsante menu
             const spans = this.querySelectorAll('span');
             if (this.classList.contains('active')) {
                 spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Закриття мобільного меню при кліку на пункт меню
+    // Chiusura del menu mobile al clic su una voce del menu
     const menuLinks = document.querySelectorAll('.menu a');
     menuLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 menu.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
                 
-                // Повернення кнопки меню до початкового стану
+                // Ripristino del pulsante menu allo stato iniziale
                 const spans = mobileMenuBtn.querySelectorAll('span');
                 spans[0].style.transform = 'none';
                 spans[1].style.opacity = '1';
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Зміна стилю хедера при прокрутці
+    // Modifica dello stile dell'header durante lo scroll
     const header = document.querySelector('header');
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Анімація появи елементів при прокрутці
+    // Animazione di apparizione degli elementi durante lo scroll
     const animateElements = document.querySelectorAll('.service-card, .about-content, .testimonial');
     
     function checkScroll() {
@@ -68,18 +68,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Початкові стилі для анімації
+    // Stili iniziali per l'animazione
     animateElements.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
         element.style.transition = 'all 0.6s ease';
     });
     
-    // Перевірка при завантаженні та прокрутці
+    // Controllo al caricamento e durante lo scroll
     window.addEventListener('load', checkScroll);
     window.addEventListener('scroll', checkScroll);
     
-    // Плавна прокрутка до якорів
+    // Scroll fluido verso gli ancoraggi
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
