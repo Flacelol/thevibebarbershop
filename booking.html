@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Онлайн-запис - The VIBE Barbershop</title>
+    <title>Prenotazione Online - The VIBE Barbershop</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
-        /* Додаткові стилі для сторінки онлайн-запису */
+        /* Stili aggiuntivi per la pagina di prenotazione online */
         .booking-page {
             padding-top: 120px;
         }
@@ -163,11 +163,11 @@
             </div>
             <nav>
                 <ul class="menu">
-                    <li><a href="index.html">Головна</a></li>
-                    <li><a href="services.html">Послуги</a></li>
-                    <li><a href="gallery.html">Галерея</a></li>
-                    <li><a href="booking.html" class="active">Онлайн-запис</a></li>
-                    <li><a href="contacts.html">Контакти</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Servizi</a></li>
+                    <li><a href="gallery.html">Galleria</a></li>
+                    <li><a href="booking.html" class="active">Prenotazione Online</a></li>
+                    <li><a href="contacts.html">Contatti</a></li>
                 </ul>
                 <div class="mobile-menu-btn">
                     <span></span>
@@ -180,53 +180,53 @@
 
     <section class="booking-page">
         <div class="container">
-            <h2 class="section-title">Онлайн-запис</h2>
+            <h2 class="section-title">Prenotazione Online</h2>
             
             <div class="booking-container">
                 <div class="booking-form">
                     <div class="booking-success">
                         <i class="fas fa-check-circle"></i>
-                        <h3>Дякуємо за запис!</h3>
-                        <p>Ваш запис успішно створено. Ми зв'яжемося з вами найближчим часом для підтвердження.</p>
+                        <h3>Grazie per la prenotazione!</h3>
+                        <p>La tua prenotazione è stata creata con successo. Ti contatteremo a breve per la conferma.</p>
                     </div>
                     
                     <form id="booking-form">
                         <div class="form-group">
-                            <label for="service">Оберіть послугу</label>
+                            <label for="service">Scegli il servizio</label>
                             <select id="service" class="form-control" required>
-                                <option value="" disabled selected>Оберіть послугу</option>
-                                <option value="haircut-women">Жіноча стрижка</option>
-                                <option value="haircut-men">Чоловіча стрижка</option>
-                                <option value="beard">Моделювання бороди</option>
-                                <option value="manicure">Манікюр</option>
-                                <option value="pedicure">Педикюр</option>
-                                <option value="makeup">Макіяж</option>
-                                <option value="brows">Корекція брів</option>
+                                <option value="" disabled selected>Scegli il servizio</option>
+                                <option value="haircut-women">Taglio donna</option>
+                                <option value="haircut-men">Taglio uomo</option>
+                                <option value="beard">Modellatura barba</option>
+                                <option value="manicure">Manicure</option>
+                                <option value="pedicure">Pedicure</option>
+                                <option value="makeup">Trucco</option>
+                                <option value="brows">Correzione sopracciglia</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="master">Оберіть майстра</label>
+                            <label for="master">Scegli il professionista</label>
                             <select id="master" class="form-control" required>
-                                <option value="" disabled selected>Оберіть майстра</option>
-                                <option value="any">Будь-який майстер</option>
-                                <option value="olena">Олена (стрижки, зачіски)</option>
-                                <option value="maria">Марія (манікюр, педикюр)</option>
-                                <option value="andrii">Андрій (чоловічі стрижки, борода)</option>
-                                <option value="natalia">Наталія (макіяж, брови)</option>
+                                <option value="" disabled selected>Scegli il professionista</option>
+                                <option value="any">Qualsiasi professionista</option>
+                                <option value="olena">Elena (tagli, acconciature)</option>
+                                <option value="maria">Maria (manicure, pedicure)</option>
+                                <option value="andrii">Andrea (tagli maschili, barba)</option>
+                                <option value="natalia">Natalia (trucco, sopracciglia)</option>
                             </select>
                         </div>
                         
                         <div class="date-time-container">
                             <div class="form-group">
-                                <label for="date">Дата</label>
+                                <label for="date">Data</label>
                                 <input type="date" id="date" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="time">Час</label>
+                                <label for="time">Orario</label>
                                 <select id="time" class="form-control" required>
-                                    <option value="" disabled selected>Оберіть час</option>
+                                    <option value="" disabled selected>Scegli l'orario</option>
                                     <option value="10:00">10:00</option>
                                     <option value="11:00">11:00</option>
                                     <option value="12:00">12:00</option>
@@ -240,45 +240,45 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="name">Ваше ім'я</label>
-                            <input type="text" id="name" class="form-control" placeholder="Введіть ваше ім'я" required>
+                            <label for="name">Il tuo nome</label>
+                            <input type="text" id="name" class="form-control" placeholder="Inserisci il tuo nome" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="phone">Номер телефону</label>
-                            <input type="tel" id="phone" class="form-control" placeholder="Введіть ваш номер телефону" required>
+                            <label for="phone">Numero di telefono</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Inserisci il tuo numero di telefono" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">Email (необов'язково)</label>
-                            <input type="email" id="email" class="form-control" placeholder="Введіть ваш email">
+                            <label for="email">Email (opzionale)</label>
+                            <input type="email" id="email" class="form-control" placeholder="Inserisci la tua email">
                         </div>
                         
                         <div class="form-group">
-                            <label for="comment">Коментар (необов'язково)</label>
-                            <textarea id="comment" class="form-control" rows="3" placeholder="Додаткова інформація або побажання"></textarea>
+                            <label for="comment">Commento (opzionale)</label>
+                            <textarea id="comment" class="form-control" rows="3" placeholder="Informazioni aggiuntive o richieste"></textarea>
                         </div>
                         
-                        <button type="submit" class="submit-btn">Записатися</button>
+                        <button type="submit" class="submit-btn">Prenota</button>
                     </form>
                 </div>
                 
                 <div class="booking-info">
-                    <h3>Інформація про запис</h3>
-                    <p>Щоб записатися на прийом, будь ласка, заповніть форму зліва. Після відправлення форми, ми зв'яжемося з вами для підтвердження запису.</p>
+                    <h3>Informazioni sulla prenotazione</h3>
+                    <p>Per prenotare un appuntamento, compila il modulo a sinistra. Dopo l'invio del modulo, ti contatteremo per confermare la prenotazione.</p>
                     
-                    <h3>Правила запису</h3>
+                    <h3>Regole di prenotazione</h3>
                     <ul>
-                        <li><i class="fas fa-check"></i> Запис здійснюється не пізніше ніж за 24 години до бажаного часу</li>
-                        <li><i class="fas fa-check"></i> У разі скасування запису, будь ласка, повідомте нас не пізніше ніж за 2 години</li>
-                        <li><i class="fas fa-check"></i> Рекомендуємо приходити за 10-15 хвилин до призначеного часу</li>
-                        <li><i class="fas fa-check"></i> Якщо ви запізнюєтесь, будь ласка, повідомте нас за телефоном</li>
+                        <li><i class="fas fa-check"></i> La prenotazione deve essere effettuata almeno 24 ore prima dell'orario desiderato</li>
+                        <li><i class="fas fa-check"></i> In caso di cancellazione, ti preghiamo di avvisarci almeno 2 ore prima</li>
+                        <li><i class="fas fa-check"></i> Consigliamo di arrivare 10-15 minuti prima dell'orario stabilito</li>
+                        <li><i class="fas fa-check"></i> Se sei in ritardo, ti preghiamo di avvisarci telefonicamente</li>
                     </ul>
                     
-                    <h3>Контактна інформація</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> проспект Перемоги, 33/1, Київ (біля метро Політех)</p>
+                    <h3>Informazioni di contatto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Viale della Vittoria, 33/1, Kiev (vicino alla metro Politecnico)</p>
                     <p><i class="fas fa-phone"></i> <a href="tel:0934533345">093 453 33 45</a></p>
-                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, щоденно</p>
+                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, tutti i giorni</p>
                 </div>
             </div>
         </div>
@@ -289,16 +289,16 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <h2>The VIBE Barbershop</h2>
-                    <p>Ваша краса - наша пристрасть</p>
+                    <p>La tua bellezza è la nostra passione</p>
                 </div>
                 <div class="footer-contact">
-                    <h3>Контакти</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> проспект Перемоги, 33/1, Київ (біля метро Політех)</p>
+                    <h3>Contatti</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Viale della Vittoria, 33/1, Kiev (vicino alla metro Politecnico)</p>
                     <p><i class="fas fa-phone"></i> <a href="tel:0934533345">093 453 33 45</a></p>
-                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, щоденно</p>
+                    <p><i class="fas fa-clock"></i> 10:00 - 18:00, tutti i giorni</p>
                 </div>
                 <div class="footer-social">
-                    <h3>Слідкуйте за нами</h3>
+                    <h3>Seguici</h3>
                     <div class="social-icons">
                         <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
@@ -307,7 +307,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 The VIBE Barbershop. Всі права захищені.</p>
+                <p>&copy; 2023 The VIBE Barbershop. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
@@ -328,11 +328,11 @@
             });
             console.log('EmailJS initialized successfully');
             console.log('EmailJS object:', emailjs);
-            debugInfo.innerHTML = '✅ EmailJS загружен и готов к работе!';
+            debugInfo.innerHTML = '✅ EmailJS caricato e pronto!';
             debugInfo.style.background = '#28a745';
         } else {
             console.error('EmailJS library not loaded!');
-            debugInfo.innerHTML = '❌ EmailJS не загружен! Проверьте подключение к интернету.';
+            debugInfo.innerHTML = '❌ EmailJS non caricato! Controlla la connessione internet.';
             debugInfo.style.background = '#dc3545';
         }
         
@@ -348,7 +348,7 @@
             const bookingSuccess = document.querySelector('.booking-success');
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
             
-            // Встановлення мінімальної дати для вибору (сьогодні)
+            // Impostazione data minima per la selezione (oggi)
             const dateInput = document.getElementById('date');
             const today = new Date();
             const yyyy = today.getFullYear();
@@ -357,16 +357,16 @@
             const formattedToday = `${yyyy}-${mm}-${dd}`;
             dateInput.min = formattedToday;
             
-            // Обробка відправки форми
+            // Gestione invio modulo
             bookingForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 // Disable submit button and show loading
                 const originalText = submitBtn.textContent;
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'Відправляємо...';
+                submitBtn.textContent = 'Invio in corso...';
                 
-                // Збір даних для EmailJS
+                // Raccolta dati per EmailJS
                 const formData = {
                     service_name: document.getElementById('service').value,
                     master_name: document.getElementById('master').value,
@@ -374,8 +374,8 @@
                     time: document.getElementById('time').value,
                     client_name: document.getElementById('name').value,
                     phone: document.getElementById('phone').value,
-                    email: document.getElementById('email').value || 'Не вказано',
-                    comment: document.getElementById('comment').value || 'Немає коментарів'
+                    email: document.getElementById('email').value || 'Non specificato',
+                    comment: document.getElementById('comment').value || 'Nessun commento'
                 };
                 
                 // Send email using EmailJS
@@ -383,23 +383,23 @@
                     .then(function(response) {
                         console.log('SUCCESS!', response.status, response.text);
                         
-                        // Показ повідомлення про успішний запис
+                        // Mostra messaggio di successo
                         bookingSuccess.style.display = 'block';
                         
-                        // Прокрутка до повідомлення
+                        // Scorri al messaggio
                         bookingSuccess.scrollIntoView({ behavior: 'smooth' });
                         
-                        // Очищення форми
+                        // Pulisci modulo
                         bookingForm.reset();
                         dateInput.min = formattedToday; // Restore min date after reset
                         
-                        // Приховування повідомлення через 5 секунд
+                        // Nascondi messaggio dopo 5 secondi
                         setTimeout(function() {
                             bookingSuccess.style.display = 'none';
                         }, 5000);
                     }, function(error) {
                         console.log('FAILED...', error);
-                        alert('Виникла помилка при створенні запису. Будь ласка, спробуйте пізніше або зв\'яжіться з нами за телефоном.');
+                        alert('Si è verificato un errore durante la creazione della prenotazione. Riprova più tardi o contattaci telefonicamente.');
                     })
                     .finally(function() {
                         // Re-enable submit button
@@ -408,7 +408,7 @@
                     });
             });
             
-            // Валідація номера телефону
+            // Validazione numero di telefono
             const phoneInput = document.getElementById('phone');
             phoneInput.addEventListener('input', function() {
                 let phoneNumber = this.value.replace(/\D/g, '');
