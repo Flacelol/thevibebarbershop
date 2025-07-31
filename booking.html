@@ -343,13 +343,121 @@
             }
         }, 5000);
         
+        // Система управления бронированиями
+        class BookingManager {
+            constructor() {
+                this.storageKey = 'salon_bookings';
+                this.availableTimes = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+            }
+            
+            // Получить все бронирования из localStorage
+            getBookings() {
+                const bookings = localStorage.getItem(this.storageKey);
+                return bookings ? JSON.parse(bookings) : {};
+            }
+            
+            // Сохранить бронирования в localStorage
+            saveBookings(bookings) {
+                localStorage.setItem(this.storageKey, JSON.stringify(bookings));
+            }
+            
+            // Создать ключ для бронирования
+            createBookingKey(date, master, time) {
+                return `${date}_${master}_${time}`;
+            }
+            
+            // Проверить, занято ли время
+            isTimeBooked(date, master, time) {
+                const bookings = this.getBookings();
+                const key = this.createBookingKey(date, master, time);
+                return bookings.hasOwnProperty(key);
+            }
+            
+            // Добавить новое бронирование
+            addBooking(date, master, time, clientData) {
+                const bookings = this.getBookings();
+                const key = this.createBookingKey(date, master, time);
+                
+                if (this.isTimeBooked(date, master, time)) {
+                    return false; // Время уже занято
+                }
+                
+                bookings[key] = {
+                    date: date,
+                    master: master,
+                    time: time,
+                    client: clientData,
+                    timestamp: new Date().toISOString()
+                };
+                
+                this.saveBookings(bookings);
+                return true;
+            }
+            
+            // Получить доступные времена для конкретного мастера и даты
+            getAvailableTimes(date, master) {
+                if (!date || !master || master === '') {
+                    return this.availableTimes;
+                }
+                
+                const availableTimes = this.availableTimes.filter(time => {
+                    // Если выбран "любой мастер", проверяем все мастера
+                    if (master === 'any') {
+                        const masters = ['olena', 'maria', 'andrii', 'natalia'];
+                        return masters.some(m => !this.isTimeBooked(date, m, time));
+                    }
+                    return !this.isTimeBooked(date, master, time);
+                });
+                
+                return availableTimes;
+            }
+            
+            // Обновить список доступных времен в селекте
+            updateTimeOptions(date, master) {
+                const timeSelect = document.getElementById('time');
+                const availableTimes = this.getAvailableTimes(date, master);
+                
+                // Сохранить текущее выбранное время
+                const currentValue = timeSelect.value;
+                
+                // Очистить опции
+                timeSelect.innerHTML = '<option value="" disabled selected>Scegli l\'orario</option>';
+                
+                // Добавить доступные времена
+                availableTimes.forEach(time => {
+                    const option = document.createElement('option');
+                    option.value = time;
+                    option.textContent = time;
+                    timeSelect.appendChild(option);
+                });
+                
+                // Восстановить выбранное время, если оно все еще доступно
+                if (currentValue && availableTimes.includes(currentValue)) {
+                    timeSelect.value = currentValue;
+                }
+                
+                // Показать сообщение, если нет доступных времен
+                if (availableTimes.length === 0) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Нет доступных времен';
+                    option.disabled = true;
+                    timeSelect.appendChild(option);
+                }
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             const bookingForm = document.getElementById('booking-form');
             const bookingSuccess = document.querySelector('.booking-success');
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
+            const bookingManager = new BookingManager();
             
             // Impostazione data minima per la selezione (oggi)
             const dateInput = document.getElementById('date');
+            const masterSelect = document.getElementById('master');
+            const timeSelect = document.getElementById('time');
+            
             const today = new Date();
             const yyyy = today.getFullYear();
             const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -357,9 +465,33 @@
             const formattedToday = `${yyyy}-${mm}-${dd}`;
             dateInput.min = formattedToday;
             
+            // Обработчики изменения даты и мастера
+            function updateAvailableTimes() {
+                const selectedDate = dateInput.value;
+                const selectedMaster = masterSelect.value;
+                
+                if (selectedDate && selectedMaster) {
+                    bookingManager.updateTimeOptions(selectedDate, selectedMaster);
+                }
+            }
+            
+            dateInput.addEventListener('change', updateAvailableTimes);
+            masterSelect.addEventListener('change', updateAvailableTimes);
+            
             // Gestione invio modulo
             bookingForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+                
+                const selectedDate = dateInput.value;
+                const selectedMaster = masterSelect.value;
+                const selectedTime = timeSelect.value;
+                
+                // Проверить, доступно ли выбранное время
+                if (selectedMaster !== 'any' && bookingManager.isTimeBooked(selectedDate, selectedMaster, selectedTime)) {
+                    alert('Извините, выбранное время уже занято. Пожалуйста, выберите другое время.');
+                    updateAvailableTimes(); // Обновить список доступных времен
+                    return;
+                }
                 
                 // Disable submit button and show loading
                 const originalText = submitBtn.textContent;
@@ -369,19 +501,34 @@
                 // Raccolta dati per EmailJS
                 const formData = {
                     service_name: document.getElementById('service').value,
-                    master_name: document.getElementById('master').value,
-                    date: document.getElementById('date').value,
-                    time: document.getElementById('time').value,
+                    master_name: selectedMaster,
+                    date: selectedDate,
+                    time: selectedTime,
                     client_name: document.getElementById('name').value,
                     phone: document.getElementById('phone').value,
                     email: document.getElementById('email').value || 'Non specificato',
                     comment: document.getElementById('comment').value || 'Nessun commento'
                 };
                 
+                // Данные клиента для сохранения в localStorage
+                const clientData = {
+                    name: formData.client_name,
+                    phone: formData.phone,
+                    email: formData.email,
+                    service: formData.service_name,
+                    comment: formData.comment
+                };
+                
                 // Send email using EmailJS
                 emailjs.send('service_57046w5', 'template_720k3yo', formData)
                     .then(function(response) {
                         console.log('SUCCESS!', response.status, response.text);
+                        
+                        // Сохранить бронирование в localStorage
+                        const masterToBook = selectedMaster === 'any' ? 'any' : selectedMaster;
+                        if (bookingManager.addBooking(selectedDate, masterToBook, selectedTime, clientData)) {
+                            console.log('Booking saved successfully');
+                        }
                         
                         // Mostra messaggio di successo
                         bookingSuccess.style.display = 'block';
@@ -392,6 +539,15 @@
                         // Pulisci modulo
                         bookingForm.reset();
                         dateInput.min = formattedToday; // Restore min date after reset
+                        
+                        // Обновить доступные времена после сброса формы
+                        timeSelect.innerHTML = '<option value="" disabled selected>Scegli l\'orario</option>';
+                        bookingManager.availableTimes.forEach(time => {
+                            const option = document.createElement('option');
+                            option.value = time;
+                            option.textContent = time;
+                            timeSelect.appendChild(option);
+                        });
                         
                         // Nascondi messaggio dopo 5 secondi
                         setTimeout(function() {
